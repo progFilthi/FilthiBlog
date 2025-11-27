@@ -1,0 +1,35 @@
+package com.progfilthi.filthiblog.controllers;
+
+import com.progfilthi.filthiblog.mappers.IPostMapper;
+import com.progfilthi.filthiblog.models.dto.post.CreatePostDto;
+import com.progfilthi.filthiblog.models.dto.post.PostResponseDto;
+import com.progfilthi.filthiblog.services.posts.PostService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/posts")
+@RequiredArgsConstructor
+public class PostController {
+
+    private final PostService postService;
+
+    @PostMapping
+    public ResponseEntity<PostResponseDto> createPost(@Valid @RequestBody CreatePostDto dto){
+        PostResponseDto response = postService.createPost(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping
+    public Page<PostResponseDto> getAllPosts(@PageableDefault(size = 5) Pageable pageable){
+        return postService.getAllPosts(pageable);
+    }
+
+
+}
