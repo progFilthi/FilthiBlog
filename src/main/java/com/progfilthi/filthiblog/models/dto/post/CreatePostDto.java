@@ -4,11 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record CreatePostDto(
-        @NotBlank
+        @NotBlank(message = "Title is required.")
         @Size(min = 1, max = 100)
         String title,
 
-        @NotBlank
+        @NotBlank(message = "Content is required.")
         @Size(min = 1, max = 5000)
         String content
 ) {

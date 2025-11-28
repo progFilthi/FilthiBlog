@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
             errors.put(fieldName, errorMsg);
         });
 
-        String message = "Validation failed: " + errors.keySet();
+        String message = "Validation failed for fields: " + String.join(", ", errors.keySet());
 
         ApiResponseError apiResponseError = new ApiResponseError(
                 message,
@@ -55,6 +55,24 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(apiResponseError, HttpStatus.NOT_FOUND);
     }
+
+    //403 - forbidden
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiResponseError> handleAccessDeniedException(AccessDeniedException ex, HttpServletRequest request){
+
+
+        ApiResponseError apiResponseError = new ApiResponseError(
+                ex.getMessage(),
+                request.getRequestURI(),
+                HttpStatus.FORBIDDEN.value(),
+                LocalDateTime.now()
+
+        );
+
+        return new ResponseEntity<>(apiResponseError, HttpStatus.FORBIDDEN);
+    }
+
+
 
     //409 - already exists
     @ExceptionHandler(ResourceConflictException.class)

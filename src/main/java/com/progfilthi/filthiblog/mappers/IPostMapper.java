@@ -7,6 +7,7 @@ import com.progfilthi.filthiblog.models.dto.post.PostAuthorDto;
 import com.progfilthi.filthiblog.models.dto.post.PostResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface IPostMapper {
@@ -22,6 +23,12 @@ public interface IPostMapper {
 
     //Converting User -> PostAuthorDto
     PostAuthorDto toPostAuthorDto(User user);
+
+
+    // Create DTO -> Entity (id + user set manually in service)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    void updateFromDto(CreatePostDto dto, @MappingTarget Post post);
 
 
 }

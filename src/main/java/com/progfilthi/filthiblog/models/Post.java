@@ -1,5 +1,6 @@
 package com.progfilthi.filthiblog.models;
 
+import com.progfilthi.filthiblog.enums.PostStatus;
 import com.progfilthi.filthiblog.enums.Roles;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -27,6 +28,10 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private PostStatus status = PostStatus.DRAFT;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

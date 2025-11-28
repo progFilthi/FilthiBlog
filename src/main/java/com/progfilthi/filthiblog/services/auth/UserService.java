@@ -1,5 +1,6 @@
 package com.progfilthi.filthiblog.services.auth;
 
+import com.progfilthi.filthiblog.enums.Roles;
 import com.progfilthi.filthiblog.globalExceptionHandler.ResourceConflictException;
 import com.progfilthi.filthiblog.globalExceptionHandler.ResourceNotFoundException;
 import com.progfilthi.filthiblog.mappers.IUserMapper;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +30,7 @@ public class UserService {
     private final IUserMapper userMapper;
     private final JwtService jwtService;
 
+    @Transactional
     public AuthResponseDto registerUser(CreateUserDto dto){
         if(userRepository.existsByEmail(dto.email())){
             throw new ResourceConflictException("Email already exists");
@@ -45,6 +48,7 @@ public class UserService {
     }
 
 
+    @Transactional
     public AuthResponseDto loginUser(LoginUserDto dto){
         User user = userRepository.findByEmail(dto.email()).orElseThrow(
                 ()-> new ResourceNotFoundException("Email doesn't exist.")
@@ -72,6 +76,7 @@ public class UserService {
     }
 
 
+    @Transactional(readOnly = true)
     public Page<UserResponseDto> getAllUsers(Pageable pageable){
         return userRepository.findAll(pageable).map(userMapper::toUserResponseDto);
     }
