@@ -40,5 +40,23 @@ public class UserController {
         return userService.getAllUsers(pageable);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UserResponseDto> getCurrentAuthenticatedUser(){
+        UserResponseDto response = userService.getCurrentAuthenticatedUser();
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{user_id}/promote-admin")
+    public ResponseEntity<UserResponseDto> promoteUserToAdmin(@PathVariable Long user_id){
+        UserResponseDto response = userService.promoteUserToAdmin(user_id);
+        return ResponseEntity.ok().body(response);
+    }
+
+
+    @PutMapping("/{user_id}/demote-admin")
+    public ResponseEntity<UserResponseDto> demoteAdminToUser(@PathVariable Long user_id){
+        UserResponseDto response = userService.demoteAdminToUser(user_id);
+        return ResponseEntity.ok().body(response);
+    }
 
 }
