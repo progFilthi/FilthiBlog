@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/posts")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class PostController {
 
