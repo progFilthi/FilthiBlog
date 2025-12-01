@@ -3,11 +3,13 @@ package com.progfilthi.filthiblog.services.comments;
 import com.progfilthi.filthiblog.globalExceptionHandler.ResourceNotFoundException;
 import com.progfilthi.filthiblog.mappers.ICommentMapper;
 import com.progfilthi.filthiblog.models.Comment;
+import com.progfilthi.filthiblog.models.Post;
 import com.progfilthi.filthiblog.models.User;
 import com.progfilthi.filthiblog.models.dto.comment.CommentResponseDto;
 import com.progfilthi.filthiblog.models.dto.comment.CreateCommentDto;
 import com.progfilthi.filthiblog.models.dto.comment.UpdateCommentDto;
 import com.progfilthi.filthiblog.repositories.ICommentRepository;
+import com.progfilthi.filthiblog.repositories.IPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,10 +23,18 @@ public class CommentService {
 
     private final ICommentRepository commentRepository;
     private final ICommentMapper commentMapper;
+    private final IPostRepository postRepository;
 
     @Transactional
-    public CommentResponseDto createComment(CreateCommentDto dto){
-        Comment comment = commentMapper.toCommentEntity(dto);
+    public CommentResponseDto createComment(Long post_id, CreateCommentDto dto){
+        Comment comment = commentMapper.toCommentEntity( dto);
+
+
+        Post post = postRepository.findById(post_id).orElseThrow(
+                ()-> new ResourceNotFoundException("Post not found")
+        );
+
+        comment.setPost(post);
 
         User currentUser = getCurrentUser();
 

@@ -14,24 +14,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/posts/comments")
+@RequestMapping("/api/posts")
 @RequiredArgsConstructor
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping
-    public ResponseEntity<CommentResponseDto> createComment(@Valid @RequestBody CreateCommentDto dto){
-        CommentResponseDto response = commentService.createComment(dto);
+    @PostMapping("{post_id}/comments")
+    public ResponseEntity<CommentResponseDto> createComment(@PathVariable Long post_id, @Valid @RequestBody CreateCommentDto dto){
+        CommentResponseDto response = commentService.createComment(post_id, dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping
-    public Page<CommentResponseDto> getAllComments(@PageableDefault(size = 10) Pageable pageable){
+    @GetMapping("/comments")
+    public Page<CommentResponseDto> getAllComments(@PageableDefault(size = 20) Pageable pageable){
         return commentService.getAllComments(pageable);
     }
 
-    @PutMapping("/{comment_id}")
+    @PutMapping("/comments/{comment_id}")
     public ResponseEntity<CommentResponseDto> updateComment(@PathVariable Long comment_id, @Valid
     @RequestBody UpdateCommentDto dto){
         CommentResponseDto response = commentService.updateComment(comment_id, dto);
@@ -39,7 +39,7 @@ public class CommentController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{comment_id}")
+    @DeleteMapping("/comments/{comment_id}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long comment_id){
         commentService.deleteComment(comment_id);
         return ResponseEntity.noContent().build();
