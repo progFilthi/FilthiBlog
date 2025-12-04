@@ -33,7 +33,7 @@ public class SecurityConfig {
                 ))
                 .authorizeHttpRequests(auth -> auth
                         // Public endpoints
-                        .requestMatchers("/api/auth/**", "/api/posts").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/posts","/api/posts/{post_id}").permitAll()
 
                         // Everything else requires JWT
                         .anyRequest().authenticated()

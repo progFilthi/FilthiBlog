@@ -22,7 +22,8 @@ public class Post {
     @Column( name = "title")
     private String title;
 
-    @Column( name = "content")
+    @Lob
+    @Column( name = "content", columnDefinition = "TEXT")
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)

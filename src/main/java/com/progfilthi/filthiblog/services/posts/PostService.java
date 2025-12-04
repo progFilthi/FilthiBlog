@@ -105,6 +105,21 @@ public class PostService {
 
     }
 
+    @Transactional(readOnly = true)
+    public Page<PostResponseDto> getAllDrafts(Pageable pageable){
+        checkAdminOnly();
+        return postRepository.findByStatusOrderByCreatedAtDesc(PostStatus.DRAFT, pageable)
+                .map(postMapper::toPostResponseDto);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PostResponseDto> getMyPosts(Pageable pageable){
+        User currentUser = getCurrentUser();
+
+        return postRepository.findByUserOrderByCreatedAtDesc(currentUser, pageable)
+                .map(postMapper::toPostResponseDto);
+    }
+
 
     private void checkOwnershipOrAdmin(Post post){
         User currentUser = getCurrentUser();

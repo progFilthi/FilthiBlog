@@ -32,6 +32,11 @@ public class PostController {
         return postService.getAllPosts(pageable);
     }
 
+    @GetMapping("/my-posts")
+    public Page<PostResponseDto> getMyPosts(@PageableDefault(size = 5) Pageable pageable){
+        return postService.getMyPosts(pageable);
+    }
+
     @GetMapping("/{post_id}")
     public ResponseEntity<PostResponseDto> getPost(@PathVariable Long post_id){
         PostResponseDto response = postService.getPost(post_id);
@@ -64,6 +69,12 @@ public class PostController {
     public Page<PostResponseDto> getPostDrafts(@PageableDefault(size = 5)
                                                    Pageable pageable){
         return postService.getPostDrafts(pageable);
+    }
+
+    @GetMapping("/drafts/all")
+    public Page<PostResponseDto> getAllDrafts(@PageableDefault(size = 5)
+                                                  Pageable pageable){
+        return postService.getAllDrafts(pageable);
     }
 
 
