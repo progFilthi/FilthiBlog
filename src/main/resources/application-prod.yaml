@@ -1,0 +1,15 @@
+# src/main/resources/application-prod.yml   ← Render + Neon
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}        # ← will come from Render env vars
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate        # ← MUST be valid or none in prod
+    show-sql: false
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true

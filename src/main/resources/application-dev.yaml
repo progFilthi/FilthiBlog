@@ -1,0 +1,8 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update        # only in local dev – makes iteration fast
+
+  flyway:
+    enabled: false           # let Hibernate handle schema locally

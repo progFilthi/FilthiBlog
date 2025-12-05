@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: FilthiBlog
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: progFilthi
+    password: progFilthipass
+    hikari:
+      maximum-pool-size: 10
+
+  jpa:
+    hibernate:
+      ddl-auto: validate        # ← NOW validate everywhere (Flyway is in charge)
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0
+
+jwt:
+  secret: ${JWT_SECRET:Ur3cDYkC/o9G8Cq/VR3nmLMlQM6zbLOGfrUqYr5KCNChYtPhLJtsJg2JluCYd7DAFt8rk03JV/vL9s2J9k9eXA==}
+  expiration: 86400000
+
+app:
+  admin:
+    email: gamerfilthi@gmail.com
+    username: progFilthi
+    password: Lilbaby09
+
+
+# Default (uses application-dev if active, otherwise base)
+#  ./mvnw spring-boot:run
+
+  # Or explicitly
+#  ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
