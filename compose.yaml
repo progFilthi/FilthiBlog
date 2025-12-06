@@ -3,7 +3,7 @@ services:
     image: postgres:latest
     ports:
       - "5432:5432"
-    restart: always
     environment:
-      POSTGRES_USER: progFilthi
-      POSTGRES_PASSWORD: progFilthipass
+      POSTGRES_DB: fithiblogdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres

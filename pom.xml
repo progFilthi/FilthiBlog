@@ -75,8 +75,6 @@
             <version>${mapstruct.version}</version>
         </dependency>
 
-
-
         <!-- JWT dependencies -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -95,7 +93,6 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
-
 
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -134,8 +131,11 @@
             <version>5.17.0</version>
             <scope>test</scope>
         </dependency>
-
-
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
     </dependencies>
 
@@ -193,7 +193,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
+                    <argLine>-javaagent:${org.mockito:mockito-core:jar}</argLine>
                 </configuration>
             </plugin>
         </plugins>

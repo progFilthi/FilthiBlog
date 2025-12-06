@@ -1,8 +1,25 @@
 spring:
+  docker:
+    compose:
+      enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fithiblogdb
+    username: postgres
+    password: postgres
   jpa:
-    show-sql: true
     hibernate:
-      ddl-auto: update        # only in local dev – makes iteration fast
-
+      ddl-auto: create-drop
   flyway:
-    enabled: false           # let Hibernate handle schema locally
+    enabled: false
+
+app:
+  admin:
+    email: gamerfilthi@gmail.com
+    username: progFilthi
+    password: Lilbaby09
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
+
+frontend-dev-url: http://localhost:3000
