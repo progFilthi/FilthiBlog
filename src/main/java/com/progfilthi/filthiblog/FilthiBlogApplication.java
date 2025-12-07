@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties(AdminProperties.class)
 public class FilthiBlogApplication {
 
-    public static void main(String[] args) {
+     static void main(String[] args) {
         SpringApplication.run(FilthiBlogApplication.class, args);
     }
 

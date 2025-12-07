@@ -1,11 +1,10 @@
-# Use official OpenJDK 25 (or eclipse-temurin if you prefer)
-FROM openjdk:25-jdk-slim
-
+FROM eclipse-temurin:25-jdk-alpine AS builder
 WORKDIR /app
+COPY . .
+RUN ./mvnw clean package -DskipTests
 
-# Copy maven executable jar (Spring Boot plugin creates this)
-COPY target/FilthiBlog-0.0.1-SNAPSHOT.jar app.jar
-
+FROM eclipse-temurin:25-jre-alpine
+WORKDIR /app
+COPY --from=builder /app/target/FilthiBlog-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
