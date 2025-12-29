@@ -183,6 +183,6 @@ Copy code
 
 ## Author
 
-**Emma**  
+**Emmanuel Francis (Programmer filthi)**  
 Backend-focused Software Engineer  
 Java • Spring Boot • Distributed Systems
